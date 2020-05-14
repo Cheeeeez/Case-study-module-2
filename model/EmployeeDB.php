@@ -23,7 +23,6 @@ class EmployeeDB
         return $statement->execute();
     }
 
-    //get element by id
     public function getByID($id)
     {
         $sql = "SELECT * FROM employees WHERE emp_id = ?";
@@ -37,7 +36,7 @@ class EmployeeDB
         return $employee;
     }
 
-    //delete by id
+
     public function deleteById($id)
     {
         $sql = "DELETE FROM employees WHERE emp_id = ?";
@@ -46,7 +45,7 @@ class EmployeeDB
         return $statement->execute();
     }
 
-    //update employee
+
     public function updateById($id, $employee)
     {
         $sql = "UPDATE employees SET emp_name = ?,email = ?,phone = ? ,address= ?, gender = ?,pos_id = ? WHERE emp_id = ?";
@@ -66,9 +65,19 @@ class EmployeeDB
         $sql = "SELECT * FROM employees";
         $stmt = $this->conn->query($sql);
         $result = $stmt->fetchAll();
-        return $employee = new Employee($result['emp_id'], $result['emp_name'], $result['email'], $result['phone'],
-            $result['address'], $result['position']);
+        $employees = [];
+        foreach ($result as $item) {
+            $employee = new Employee($item['emp_name'], $item['gender'], $item['email'], $item['phone'],
+                $item['address'], $item['pos_id']);
+            $employee->setEmployeeId($item['emp_id']);
+            $employees[] = $employee;
+        }
+
     }
-
-
 }
+
+
+
+
+
+
