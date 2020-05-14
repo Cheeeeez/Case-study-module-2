@@ -3,11 +3,11 @@
 
 class EmployeeDB
 {
-    public $connection;
+    public $conn;
 
-    public function __construct($connection)
+    public function __construct($conn)
     {
-        $this->connection = $connection;
+        $this->conn = $conn;
     }
 
     public function create($employee)
@@ -24,4 +24,20 @@ class EmployeeDB
     }
 
     //get element by id
+
+
+
+
+    public function getAll()
+    {
+        $sql = "SELECT * FROM employees";
+        $stmt = $this->conn->query($sql);
+        $result = $stmt->fetchAll();
+        return $employee = new Employee($result['emp_id'], $result['emp_name'], $result['email'], $result['phone'], $result['address'], $result['position']);
+    }
+
+
+
+
+
 }
