@@ -497,3 +497,7 @@ iframe {
     padding-right: 15px;
   }
 }
+
+a.nav-link {
+  color: white;
+}

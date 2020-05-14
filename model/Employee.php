@@ -11,15 +11,19 @@ class Employee
     private $address;
     private $position;
 
-    public function __construct($employeeId, $name, $gender, $email, $phone, $address, $position)
+    public function __construct($name, $gender, $email, $phone, $address, $position)
     {
-        $this->employeeId = $employeeId;
         $this->name = $name;
         $this->gender = $gender;
         $this->email = $email;
         $this->phone = $phone;
         $this->address = $address;
         $this->position = $position;
+    }
+
+    public function setEmployeeId($employeeId)
+    {
+        $this->employeeId = $employeeId;
     }
 
     public function getEmployeeId()
