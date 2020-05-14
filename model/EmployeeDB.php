@@ -71,8 +71,8 @@ class EmployeeDB
     public function getAll()
     {
         $sql = "SELECT emp_id, emp_name, gender, email, phone, address, position.name AS position , avatar FROM employees JOIN position ON employees.pos_id = position.id";
-        $stmt = $this->conn->query($sql);
-        $result = $stmt->fetchAll();
+        $statement = $this->conn->query($sql);
+        $result = $statement->fetchAll();
         $employees = [];
         foreach ($result as $item) {
             $employee = new Employee($item['emp_name'], $item['gender'], $item['email'], $item['phone'],
@@ -87,8 +87,8 @@ class EmployeeDB
     public function getPositionList()
     {
         $sql = "SELECT name, coefficients FROM position";
-        $stmt = $this->conn->query($sql);
-        return $stmt->fetchAll();
+        $statement = $this->conn->query($sql);
+        return $statement->fetchAll();
     }
 }
 
