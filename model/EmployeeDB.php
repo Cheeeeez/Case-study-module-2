@@ -12,7 +12,7 @@ class EmployeeDB
 
     public function create($employee)
     {
-        $sql = "INSERT INTO employee VALUES(null ,? ,?,?,?,?,?)";
+        $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?)";
         $statement = $this->connection->prepare($sql);
         $statement->bindParam(1, $employee->getName());
         $statement->bindParam(2, $employee->getEmail());
