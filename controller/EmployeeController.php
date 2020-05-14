@@ -7,7 +7,7 @@ class EmployeeController
 
     public function __construct()
     {
-        $conn = new DBConnection("mysql:host=localhost;dbname=case_study", "root", "Khongba0.");
+        $conn = new DBConnection("mysql:host=localhost;dbname=case_study", "root", "Abc123456@");
         $this->employeeDB = new EmployeeDB($conn->connect());
     }
 

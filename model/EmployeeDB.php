@@ -12,6 +12,7 @@ class EmployeeDB
 
     public function create($employee)
     {
+
         $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?,?)";
         $statement = $this->conn->prepare($sql);
         $statement->bindParam(1, $employee->getName());
@@ -33,7 +34,7 @@ class EmployeeDB
         $statement->execute();
         $row = $statement->fetch();
         $employee = new Employee($row['emp_name'], $row['email'], $row['phone'], $row['address'], $row['gender'],
-            $row['pos_id'],$row['avatar']);
+            $row['pos_id'], $row['avatar']);
         $employee->setEmployeeId($row['emp_id']);
         return $employee;
     }
@@ -51,6 +52,7 @@ class EmployeeDB
     public function updateById($id, $employee)
     {
         $sql = "UPDATE employees SET emp_name = ?,email = ?,phone = ? ,address= ?, gender = ?,pos_id = ?,avatar = ? WHERE emp_id = ?";
+
         $statement = $this->conn->prepare($sql);
         $statement->bindParam(1, $employee->getName());
         $statement->bindParam(2, $employee->getEmail());
@@ -71,7 +73,7 @@ class EmployeeDB
         $employees = [];
         foreach ($result as $item) {
             $employee = new Employee($item['emp_name'], $item['gender'], $item['email'], $item['phone'],
-                $item['address'], $item['pos_id'],$item['avatar']);
+                $item['address'], $item['pos_id'], $item['avatar']);
             $employee->setEmployeeId($item['emp_id']);
             $employees[] = $employee;
         }
