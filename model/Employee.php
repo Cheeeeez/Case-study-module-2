@@ -10,6 +10,7 @@ class Employee
     private $phone;
     private $address;
     private $position;
+    private $avatar;
 
     public function __construct($name, $gender, $email, $phone, $address, $position)
     {
@@ -19,6 +20,16 @@ class Employee
         $this->phone = $phone;
         $this->address = $address;
         $this->position = $position;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 
     public function setEmployeeId($employeeId)

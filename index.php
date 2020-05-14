@@ -19,7 +19,7 @@ if (!isset($_SESSION['user'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
@@ -84,6 +84,12 @@ $userController = new UserController();
 $employeeController = new EmployeeController();
 $page = isset($_REQUEST['page']) ? $_REQUEST['page'] : null;
 switch ($page) {
+    case 'add-employee':
+        $employeeController->add();
+        break;
+    case 'delete-employee':
+        $employeeController->delete();
+        break;
     default:
         $employeeController->index();
 }
