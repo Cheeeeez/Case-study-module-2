@@ -12,7 +12,7 @@ class EmployeeDB
 
     public function create($employee)
     {
-        $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?)";
+        $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?,?)";
         $statement = $this->conn->prepare($sql);
         $statement->bindParam(1, $employee->getName());
         $statement->bindParam(2, $employee->getEmail());
@@ -20,8 +20,10 @@ class EmployeeDB
         $statement->bindParam(4, $employee->getAddress());
         $statement->bindParam(5, $employee->getGender());
         $statement->bindParam(6, $employee->getPosition());
+        $statement->bindParam(7, $employee->getAvatar());
         return $statement->execute();
     }
+
 
     public function getByID($id)
     {
@@ -31,8 +33,8 @@ class EmployeeDB
         $statement->execute();
         $row = $statement->fetch();
         $employee = new Employee($row['emp_name'], $row['email'], $row['phone'], $row['address'], $row['gender'],
-            $row['pos_id']);
-        $employee->emp_id = $row['emp_id'];
+            $row['pos_id'],$row['avatar']);
+        $employee->setEmployeeId($row['emp_id']);
         return $employee;
     }
 
@@ -48,7 +50,7 @@ class EmployeeDB
 
     public function updateById($id, $employee)
     {
-        $sql = "UPDATE employees SET emp_name = ?,email = ?,phone = ? ,address= ?, gender = ?,pos_id = ? WHERE emp_id = ?";
+        $sql = "UPDATE employees SET emp_name = ?,email = ?,phone = ? ,address= ?, gender = ?,pos_id = ?,avatar = ? WHERE emp_id = ?";
         $statement = $this->conn->prepare($sql);
         $statement->bindParam(1, $employee->getName());
         $statement->bindParam(2, $employee->getEmail());
@@ -56,7 +58,8 @@ class EmployeeDB
         $statement->bindParam(4, $employee->getAddress());
         $statement->bindParam(5, $employee->getGender());
         $statement->bindParam(6, $employee->getPosition());
-        $statement->bindParam(7, $employee->$id);
+        $statement->bindParam(7, $employee->getAvatar());
+        $statement->bindParam(8, $employee->$id);
         return $statement->execute();
     }
 
@@ -68,11 +71,11 @@ class EmployeeDB
         $employees = [];
         foreach ($result as $item) {
             $employee = new Employee($item['emp_name'], $item['gender'], $item['email'], $item['phone'],
-                $item['address'], $item['pos_id']);
+                $item['address'], $item['pos_id'],$item['avatar']);
             $employee->setEmployeeId($item['emp_id']);
             $employees[] = $employee;
         }
-
+        return $employees;
     }
 }
 
