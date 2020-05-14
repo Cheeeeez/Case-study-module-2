@@ -12,8 +12,8 @@ class EmployeeDB
 
     public function create($employee)
     {
-        $sql = "INSERT INTO employee VALUES(null ,? ,?,?,?,?,?)";
-        $statement = $this->connection->prepare($sql);
+        $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?)";
+        $statement = $this->conn->prepare($sql);
         $statement->bindParam(1, $employee->getName());
         $statement->bindParam(2, $employee->getEmail());
         $statement->bindParam(3, $employee->getPhone());
@@ -24,8 +24,24 @@ class EmployeeDB
     }
 
     //get element by id
-
-
+    public function getByID($id)
+    {
+        $sql = "SELECT * FROM employees WHERE emp_id = ?";
+        $statement= $this->conn->prepare($sql);
+        $statement->bindParam(1,$id);
+        $statement->execute();
+        $row= $statement->fetch();
+        $employee= new Employee($row['emp_name'],$row['email'],$row['phone'],$row['address'],$row['gender'],$row['pos_id']);
+        $employee->emp_id= $row['emp_id'];
+        return $employee;
+    }
+    //delete by id
+    public function deleteById($id){
+        $sql= "DELETE FROM employees WHERE emp_id = ?";
+        $statement= $this->conn->prepare($sql);
+        $statement->bindParam(1,$id);
+        return $statement->execute();
+    }
 
 
     public function getAll()
@@ -33,11 +49,9 @@ class EmployeeDB
         $sql = "SELECT * FROM employees";
         $stmt = $this->conn->query($sql);
         $result = $stmt->fetchAll();
-        return $employee = new Employee($result['emp_id'], $result['emp_name'], $result['email'], $result['phone'], $result['address'], $result['position']);
+        return $employee = new Employee($result['emp_id'], $result['emp_name'], $result['email'], $result['phone'],
+            $result['address'], $result['position']);
     }
-
-
-
 
 
 }
