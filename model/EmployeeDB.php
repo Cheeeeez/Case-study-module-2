@@ -15,10 +15,12 @@ class EmployeeDB
         $sql = "SELECT * FROM employees";
         $stmt = $this->conn->query($sql);
         $result = $stmt->fetchAll();
-        return $employee = new Employee($result['emp_id'], $result['emp_name'], $result['email'], $result['phone'], $result['address'], $result['position']);
+        $employees = [];
+        foreach ($result as $item) {
+            $employee = new Employee($item['emp_name'],$item['gender'], $item['email'], $item['phone'], $item['address'], $item['pos_id']);
+            $employee->setEmployeeId($item['emp_id']);
+            $employees[] = $employee;
+        }
+        return $employees;
     }
-
-
-
-
 }

@@ -13,20 +13,17 @@ class UserController
 
     public function login()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $username = $_REQUEST['username'];
-            $password = $_REQUEST['password'];
-            $result = $this->userDB->get($username, $password);
-            if ($result) {
-                $_SESSION['user'] = $result;
-                header('Location: ./');
-            }
+        $username = $_REQUEST['username'];
+        $password = $_REQUEST['password'];
+        $result = $this->userDB->get($username, $password);
+        if ($result) {
+            $_SESSION['user'] = $result;
+            header('Location: ../');
         }
     }
 
-    public function logout()
-    {
-        unset($_SESSION['user']);
-        header('Location: ./');
+        public function logout()
+        {
+            unset($_SESSION['user']);
+        }
     }
-}
