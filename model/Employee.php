@@ -12,7 +12,7 @@ class Employee
     private $position;
     private $avatar;
 
-    public function __construct($name, $gender, $email, $phone, $address, $position,$avatar)
+    public function __construct($name, $gender, $email, $phone, $address, $position)
     {
         $this->name = $name;
         $this->gender = $gender;
@@ -20,7 +20,16 @@ class Employee
         $this->phone = $phone;
         $this->address = $address;
         $this->position = $position;
-        $this->avatar=$avatar;
+    }
+
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
     }
 
     public function setEmployeeId($employeeId)
@@ -61,22 +70,6 @@ class Employee
     public function getPosition()
     {
         return $this->position;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
-     * @param mixed $avatar
-     */
-    public function setAvatar($avatar)
-    {
-        $this->avatar = $avatar;
     }
 
 

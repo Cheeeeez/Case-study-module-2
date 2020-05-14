@@ -17,5 +17,4 @@ class DBConnection
     {
         return new PDO($this->dsn, $this->username, $this->password);
     }
-
 }

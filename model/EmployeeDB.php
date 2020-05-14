@@ -13,15 +13,22 @@ class EmployeeDB
     public function create($employee)
     {
 
-        $sql = "INSERT INTO employees VALUES(null ,? ,?,?,?,?,?,?)";
+        $sql = "INSERT INTO employees VALUES(null, ?, ?, ?, ?, ?, ?, ?)";
         $statement = $this->conn->prepare($sql);
-        $statement->bindParam(1, $employee->getName());
-        $statement->bindParam(2, $employee->getEmail());
-        $statement->bindParam(3, $employee->getPhone());
-        $statement->bindParam(4, $employee->getAddress());
-        $statement->bindParam(5, $employee->getGender());
-        $statement->bindParam(6, $employee->getPosition());
-        $statement->bindParam(7, $employee->getAvatar());
+        $name = $employee->getName();
+        $email = $employee->getEmail();
+        $phone = $employee->getPhone();
+        $address = $employee->getAddress();
+        $gender = $employee->getGender();
+        $position = $employee->getPosition();
+        $avatar = $employee->getAvatar();
+        $statement->bindParam(1, $name);
+        $statement->bindParam(2, $gender);
+        $statement->bindParam(3, $email);
+        $statement->bindParam(4, $phone);
+        $statement->bindParam(5, $address);
+        $statement->bindParam(6, $position);
+        $statement->bindParam(7, $avatar);
         return $statement->execute();
     }
 
@@ -33,8 +40,9 @@ class EmployeeDB
         $statement->bindParam(1, $id);
         $statement->execute();
         $row = $statement->fetch();
+
         $employee = new Employee($row['emp_name'], $row['email'], $row['phone'], $row['address'], $row['gender'],
-            $row['pos_id'], $row['avatar']);
+            $row['pos_id']);
         $employee->setEmployeeId($row['emp_id']);
         return $employee;
     }
@@ -67,17 +75,25 @@ class EmployeeDB
 
     public function getAll()
     {
-        $sql = "SELECT * FROM employees";
-        $stmt = $this->conn->query($sql);
-        $result = $stmt->fetchAll();
+        $sql = "SELECT emp_id, emp_name, gender, email, phone, address, position.name AS position , avatar FROM employees JOIN position ON employees.pos_id = position.id";
+        $statement = $this->conn->query($sql);
+        $result = $statement->fetchAll();
         $employees = [];
         foreach ($result as $item) {
             $employee = new Employee($item['emp_name'], $item['gender'], $item['email'], $item['phone'],
                 $item['address'], $item['pos_id'], $item['avatar']);
             $employee->setEmployeeId($item['emp_id']);
+            $employee->setAvatar($item['avatar']);
             $employees[] = $employee;
         }
         return $employees;
+    }
+
+    public function getPositionList()
+    {
+        $sql = "SELECT name, coefficients FROM position";
+        $statement = $this->conn->query($sql);
+        return $statement->fetchAll();
     }
 }
 
