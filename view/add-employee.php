@@ -16,7 +16,7 @@
                    </div>
                    <div class="form-check form-check-inline">
                        <input type="radio" class="form-check-input" id="female" name="gender" value="Female">
-                       <label for="female" class="form-check-label">Male</label>
+                       <label for="female" class="form-check-label">Female</label>
                    </div>
                </div>
                 <div class="form-group">

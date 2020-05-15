@@ -13,10 +13,8 @@ class EmployeeController
 
     public function index()
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $employees = $this->employeeDB->getAll();
             include "view/employee-list.php";
-        }
     }
 
     public function add()
@@ -56,6 +54,42 @@ class EmployeeController
 
     }
 
+    public function edit(){
+        if ($_SERVER['REQUEST_METHOD']== "GET"){
+            $id=$_GET['id'];
+            $employee= $this->employeeDB->getByID($id);
+            $positionList = $this->employeeDB->getPositionList();
 
+            include 'view/edit.php';
+        }else{
+            $id= $_POST['id'];
+            $name = $_POST['name'];
+            $gender = $_POST['gender'];
+            $email = $_POST['email'];
+            $phone = $_POST['phone'];
+            $address = $_POST['address'];
+            $position = $_POST['position'];
+            if ($_FILES['avatar']['name'] == "") {
+                $avatarName = 'default.png';
+            } else {
+                $avatarName = time() . '-' . $_FILES['avatar']['name'];
+            }
+            $destination = "img/" . $avatarName;
+            move_uploaded_file($_FILES['avatar']['tmp_name'], $destination);
+            $employee = new Employee($name, $gender, $email, $phone, $address, $position);
+            $employee->setAvatar($avatarName);
+           // $employee= new Employee($_POST['name'],$_POST['gender'],$_POST['email'],$_POST['phone'],$_POST['address'],$_POST['position']);
+            $this->employeeDB->updateById($id,$employee);
+            header('location:index.php');
+        }
+    }
+
+    public function search(){
+        if ($_SERVER['REQUEST_METHOD']=="GET"){
+            $search= $_GET['search'];
+            $employees=$this->employeeDB->search($search);
+            include 'view/employee-list.php';
+        }
+    }
 
 }

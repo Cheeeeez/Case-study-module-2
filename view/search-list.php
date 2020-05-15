@@ -4,11 +4,10 @@
         <div class="card-body">
 
             <form class="form-inline" method="get">
-                <a href="./index.php?page=add-employee" class="btn btn-success mb-2 m-r-10" >Add staff</a>
-                <label class="sr-only" for="inlineFormInputName2">Name</label>
-                <input name="search" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Search">
-                <input name="page" type="text" hidden value="search-list">
-                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+            <a href="./index.php?page=add-employee" class="btn btn-success mb-2 m-r-10" >Add staff</a>
+            <label class="sr-only" for="inlineFormInputName2">Name</label>
+            <input name="search" type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Search">
+            <a type="submit" class="btn btn-primary mb-2">Submit</a>
             </form>
             <table class="table">
                 <thead class="thead-light">

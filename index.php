@@ -59,6 +59,9 @@ if (!isset($_SESSION['user'])) {
                             <a class="dropdown-item" href="">Something else here</a>
                         </div>
                     </li>
+                    <li class="nav-item">
+
+                    </li>
                 </ul>
                 <ul class="navbar-nav navbar-right">
                     <li class="nav-item dropdown">
@@ -89,6 +92,12 @@ switch ($page) {
         break;
     case 'delete-employee':
         $employeeController->delete();
+        break;
+    case 'edit-employee':
+        $employeeController->edit();
+        break;
+    case 'search-list':
+        $employeeController->search();
         break;
     default:
         $employeeController->index();
